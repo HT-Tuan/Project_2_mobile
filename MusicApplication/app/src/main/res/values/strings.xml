@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MusicApplication</string>
+    <string name="trangchu">Trang chủ</string>
+    <string name="timkiem">Tìm kiếm</string>
+    <string name="playlist">Playlist</string>
+    <string name="canhan">Cá nhân</string>
 </resources>
