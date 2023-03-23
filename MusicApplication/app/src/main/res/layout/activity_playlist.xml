@@ -4,67 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/main_color"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/frame_current_play"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.028">
 
-        <TabHost
-            android:layout_width="match_parent"
-            android:layout_height="515dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp">
+        <TextView
+            android:layout_width="183dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autoSizeTextType="none"
+            android:fontFamily="monospace"
+            android:gravity="center|left"
+            android:text="@string/playlist_label"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        <Button
+            android:id="@+id/outlinedButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingRight="1dp"
+            android:text="@string/new_playlist"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_add"
+            app:iconTint="@color/white"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp"
+            app:elevation="4dp"
+            app:rippleColor="@color/white" />
+    </LinearLayout>
 
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
-
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:id="@+id/tab1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
-                </FrameLayout>
-            </LinearLayout>
-        </TabHost>
-    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/frame_current_play"
@@ -73,7 +57,6 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
         <include
             layout="@layout/layout_notification"
             android:layout_width="match_parent"
@@ -92,9 +75,18 @@
         app:menu="@menu/bottom_navigation_menu"
         app:labelVisibilityMode="labeled"
         app:itemRippleColor="@color/main_color"
-        app:backgroundTint="@color/back_color"
+        app:backgroundTint="@color/black_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="531dp"
+        app:layout_constraintBottom_toTopOf="@+id/frame_current_play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/playlist_view"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
