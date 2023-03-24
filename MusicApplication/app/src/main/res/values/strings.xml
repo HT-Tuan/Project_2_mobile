@@ -13,5 +13,6 @@
     <string name="password">Password</string>
     <string name="remember_me">Remember me</string>
     <string name="forget_password">Quên mật khẩu</string>
-
+    <string name="account">Tài khoản</string>
+    <string name="logout">Đăng xuất</string>
 </resources>
