@@ -6,7 +6,7 @@
     android:gravity="center"
     android:background="@color/main_color"
     android:orientation="vertical"
-    tools:context=".Activity_splash">
+    tools:context="com.project.musicapplication.Activity_splash">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="120dp"
