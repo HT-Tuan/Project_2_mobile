@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "77593192135",
+    "project_id": "datamusicappmobile",
+    "storage_bucket": "datamusicappmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77593192135:android:dd59ad7e0f50353fa540e2",
+        "android_client_info": {
+          "package_name": "com.project.musicapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77593192135-62d1ptbd2aumd07aqueoeu2k1s8oo8br.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.musicapplication",
+            "certificate_hash": "9b2243783204819db6049ce406e394860dfe1d46"
+          }
+        },
+        {
+          "client_id": "77593192135-29l4ahfmnq41vehu3oebfm7ufh5ru9lt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC66ptPzRKqynyoP0S02EnL2njtmUCzJ70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77593192135-29l4ahfmnq41vehu3oebfm7ufh5ru9lt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

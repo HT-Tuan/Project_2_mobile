@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.musicapplication.R;
+import com.project.musicapplication.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -7,8 +7,6 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.musicapplication.R;
-
 public class Activity_splash extends AppCompatActivity {
 
     @Override
