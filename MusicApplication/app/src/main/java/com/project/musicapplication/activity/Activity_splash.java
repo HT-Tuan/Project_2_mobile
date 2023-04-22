@@ -1,4 +1,4 @@
-package com.project.musicapplication;
+package com.project.musicapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.project.musicapplication.MainActivity;
+import com.project.musicapplication.R;
 
 public class Activity_splash extends AppCompatActivity {
 
@@ -25,6 +28,6 @@ public class Activity_splash extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },3000);
+        },500);
     }
 }
