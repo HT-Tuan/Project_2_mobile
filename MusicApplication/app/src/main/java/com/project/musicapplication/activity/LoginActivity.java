@@ -17,8 +17,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.project.musicapplication.MainActivity;
 import com.project.musicapplication.R;
 import com.project.musicapplication.model.MyUser;
+import com.project.musicapplication.util.ActivityUtil;
 
 public class LoginActivity extends AppCompatActivity {
     public static MyUser myUser;
@@ -68,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                         if (authTask.isSuccessful()) {
                                             // Xác thực thành công
                                             Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
+                                            ActivityUtil.openActivity(this, MainActivity.class);
                                         } else {
                                             // Xác thực không thành công
                                             Toast.makeText(getApplicationContext(), "Login failed: " + authTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
