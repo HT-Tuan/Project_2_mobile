@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/backToMain"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:scaleType="fitStart"
@@ -43,7 +44,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/login_email"
+                android:id="@+id/signup_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,11 +57,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/login_password"
+                android:id="@+id/signup_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/login_email"
+                android:layout_below="@id/signup_email"
                 android:hint="Password"
                 app:endIconDrawable="@drawable/ic_hide"
                 app:endIconMode="custom"
@@ -73,24 +74,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/letTheUserLogInSignup"
+                android:id="@+id/letSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/login_password"
+                android:layout_below="@id/signup_password"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/main_color"
                 android:text="@string/sign_up"
-                android:textColor="@color/white" />
-
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/letTheUserLogInSignup"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/main_color"
-                android:text="@string/login"
                 android:textColor="@color/white" />
 
         </RelativeLayout>

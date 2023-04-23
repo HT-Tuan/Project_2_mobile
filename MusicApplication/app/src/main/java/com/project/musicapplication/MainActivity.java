@@ -18,12 +18,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.project.musicapplication.R;
 import com.project.musicapplication.activity.LoginActivity;
+import com.project.musicapplication.firebase.firebaseObject;
+import com.project.musicapplication.model.MyUser;
+import com.project.musicapplication.util.ActivityUtil;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageNav;
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     NavigationView navigationView;
     Menu menu;
-    MenuItem loginMenuItem;
+    MenuItem loginMenuItem, logoutMenuItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +67,23 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigation_view);
         menu = navigationView.getMenu();
         loginMenuItem = menu.findItem(R.id.login);
+        logoutMenuItem = menu.findItem(R.id.logout);
         loginMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                ActivityUtil.openActivity(MainActivity.this, LoginActivity.class);
+                return true;
+            }
+        });
+        logoutMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                firebaseObject.myUser = null;
+                FirebaseAuth.getInstance().signOut();
+                firebaseObject.mAuth = FirebaseAuth.getInstance();
+                firebaseObject.user = firebaseObject.mAuth.getCurrentUser();
+                Toast.makeText( MainActivity.this, "Logout success", Toast.LENGTH_LONG).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
