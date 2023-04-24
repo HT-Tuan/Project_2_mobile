@@ -1,21 +1,21 @@
 package com.project.musicapplication.model;
 
-public class Song {
+import java.io.Serializable;
+
+public class Song implements Serializable {
     String id;
     String name;
     String singer;
     String link;
-    PlayList playList;
 
     public Song() {
     }
 
-    public Song(String id, String name, String singer, String link, PlayList playList) {
+    public Song(String id, String name, String singer, String link) {
         this.id = id;
         this.name = name;
         this.singer = singer;
         this.link = link;
-        this.playList = playList;
     }
 
     public String getId() {
@@ -48,13 +48,5 @@ public class Song {
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public PlayList getPlayList() {
-        return playList;
-    }
-
-    public void setPlayList(PlayList playList) {
-        this.playList = playList;
     }
 }
