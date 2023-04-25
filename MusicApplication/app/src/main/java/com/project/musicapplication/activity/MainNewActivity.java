@@ -7,13 +7,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -33,9 +30,7 @@ import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.fragment.homeFragment;
 import com.project.musicapplication.fragment.personalFragment;
 import com.project.musicapplication.fragment.playlistFragment;
-import com.project.musicapplication.fragment.searchFragment;
 import com.project.musicapplication.service.DanMusicPlayerService;
-import com.project.musicapplication.util.ActivityUtil;
 import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
 
@@ -78,10 +73,10 @@ public class MainNewActivity extends AppCompatActivity {
                         // Thực hiện các hành động khi người dùng chọn trang chủ
                         fragment = new homeFragment();
                         break;
-                    case R.id.page_timkiem:
+//                    case R.id.page_timkiem:
                         // Thực hiện các hành động khi người dùng chọn tìm kiếm
-                        fragment = new searchFragment();
-                        break;
+//                        fragment = new searchFragment();
+//                        break;
                     case R.id.page_playlist:
                         // Thực hiện các hành động khi người dùng chọn playlist
                         fragment = new playlistFragment();

@@ -6,11 +6,6 @@
         android:icon="@drawable/ic_homepage"
         android:title="@string/trangchu"/>
     <item
-        android:id="@+id/page_timkiem"
-        android:enabled="true"
-        android:icon="@drawable/ic_search"
-        android:title="@string/timkiem"/>
-    <item
         android:id="@+id/page_playlist"
         android:enabled="true"
         android:icon="@drawable/ic_playlist"

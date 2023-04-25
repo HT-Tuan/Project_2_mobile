@@ -1,28 +1,60 @@
 package com.project.musicapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import static android.content.ContentValues.TAG;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.MediaMetadata;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.project.musicapplication.activity.LoginActivity;
+import com.project.musicapplication.adapter.tuanSongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
+import com.project.musicapplication.model.Song;
 import com.project.musicapplication.util.ActivityUtil;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+
+public class MainActivity extends AppCompatActivity implements tuanSongAdapter.OnItemClickListener {
+
+    private SearchView search_view;
+    private tuanSongAdapter songAdapter;
+    private List<Song> mSongs;
+    private ExoPlayer player;
+    private ConstraintLayout playerView;
+    private RecyclerView recyclerView;
+    private FirebaseFirestore mStorage;
+    private ProgressBar progress_circle;
+
     ImageView imageNav;
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
@@ -31,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     MenuItem loginMenuItem, logoutMenuItem;
     LinearLayout notification;
     ImageView imgPlayOrPause;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
                         // Thực hiện các hành động khi người dùng chọn trang chủ
 //                        Toast.makeText(getApplicationContext(), " Thực hiện các hành động khi người dùng chọn trang chủ", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.page_timkiem:
+//                    case R.id.page_timkiem:
                         // Thực hiện các hành động khi người dùng chọn tìm kiếm
-                        break;
+//                        break;
                     case R.id.page_playlist:
                         // Thực hiện các hành động khi người dùng chọn playlist
                         break;
@@ -103,6 +136,119 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
             }
         });
+        // // //
+        search_view = findViewById(R.id.search_view);
+        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterSong(newText.toLowerCase());
+                return true;
+            }
+        });
+        player = new ExoPlayer.Builder(this).build();
+        mSongs = new ArrayList<>();
+        playerView = findViewById(R.id.playerView);
+        progress_circle = findViewById(R.id.progress_circle);
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        songAdapter = new tuanSongAdapter(MainActivity.this, mSongs, player, playerView);
+        recyclerView.setAdapter(songAdapter);
+        songAdapter.setOnItemClickListener(MainActivity.this);
+        mStorage = FirebaseFirestore.getInstance();
+        mStorage.collection("songs").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mSongs.clear();
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Song song = document.toObject(Song.class);
+                        song.setKey(document.getId());
+                        mSongs.add(song);
+                    }
+                    songAdapter.notifyDataSetChanged();
+
+                    progress_circle.setVisibility(View.INVISIBLE);
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                    Toast.makeText(MainActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    progress_circle.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+
+
+        ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(songAdapter);
+        scaleInAnimationAdapter.setDuration(1000);
+        scaleInAnimationAdapter.setInterpolator(new OvershootInterpolator());
+        scaleInAnimationAdapter.setFirstOnly(false);
+        recyclerView.setAdapter(scaleInAnimationAdapter);
+
+
+    }
+    private void filterSong(String query) {
+        List<Song> filteredList= new ArrayList<>();
+        if(mSongs.size() > 0){
+            for (Song song: mSongs){
+                if (song.getName().toLowerCase().contains(query)){
+                    filteredList.add(song);
+                }
+            }
+        }
+        if (songAdapter != null){
+            songAdapter.filterSongs(filteredList);
+        }
+
+    }
+
+    @Override
+    public void onItemClick(List<Song> mSong, int position) {
+        Toast.makeText(this, "Normal click at position: " + position, Toast.LENGTH_SHORT).show();
+        if (!player.isPlaying()) {
+            player.setMediaItems(getMediaItems(mSong), position, 0);
+        } else {
+            player.pause();
+            player.seekTo(position, 0);
+        }
+        player.prepare();
+        player.play();
+
+        //
+        playerView.setVisibility(View.VISIBLE);
+    }
+    private List<MediaItem> getMediaItems(List<Song> mSong) {
+        List<MediaItem> mediaItems = new ArrayList<>();
+
+        for (Song song: mSong){
+            MediaItem mediaItem = new MediaItem.Builder()
+                    .setUri(song.getLink())
+                    .setMediaMetadata(getMetadata(song))
+                    .build();
+            mediaItems.add(mediaItem);
+        }
+        return mediaItems;
+    }
+    private MediaMetadata getMetadata(Song song) {
+        return new MediaMetadata.Builder()
+                .setTitle(song.getName())
+                .build();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (player.isPlaying())
+        {
+            player.stop();
+        }
+        player.release();
     }
 }

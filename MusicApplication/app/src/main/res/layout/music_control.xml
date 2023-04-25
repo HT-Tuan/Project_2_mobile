@@ -4,15 +4,6 @@
     android:layout_height="200dp"
     android:background="@color/main_color"
     android:orientation="vertical">
-    <TextView
-        android:layout_weight="7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="title song"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:textSize="60dp"
-        />
     <LinearLayout
         android:layout_weight="3"
         android:layout_width="match_parent"
@@ -36,7 +27,7 @@
             android:src="@drawable/ic_back" />
 
         <ImageView
-            android:id="@+id/img_play_or_pause"
+            android:id="@+id/imgplayorpause"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:scaleType="fitCenter"
