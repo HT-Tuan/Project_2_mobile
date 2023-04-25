@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -73,7 +74,9 @@ public class LoginActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtil.openActivity(LoginActivity.this, SignUpActivity.class);
+//                ActivityUtil.openActivity(LoginActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -122,4 +125,16 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            // Check if the signup was successful
+            if (resultCode == RESULT_OK) {
+                finish();
+            }
+        }
+    }
+
 }

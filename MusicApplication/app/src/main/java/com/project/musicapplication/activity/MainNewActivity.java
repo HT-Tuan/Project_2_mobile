@@ -233,6 +233,7 @@ public class MainNewActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Refresh the MainActivity to display the user's information
                 recreate();
+                drawerLayout.closeDrawer(GravityCompat.START);
             }
         }
     }

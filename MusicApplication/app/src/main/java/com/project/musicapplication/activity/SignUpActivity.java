@@ -38,7 +38,8 @@ public class SignUpActivity extends AppCompatActivity {
         backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtil.openActivity(SignUpActivity.this, MainActivity.class);
+                setResult(RESULT_OK);
+                finish();
             }
         });
 
@@ -78,7 +79,8 @@ public class SignUpActivity extends AppCompatActivity {
                                             // Sign up and data added to Firestore successful
                                             // Navigate to the next activity or do something else
                                             Log.i("Signup Success", "Adding document Success: "+email);
-                                            ActivityUtil.openActivity(SignUpActivity.this, MainActivity.class);
+                                            setResult(RESULT_OK);
+                                            finish();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
