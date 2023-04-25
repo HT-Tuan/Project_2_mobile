@@ -73,8 +73,14 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
         }
 
         private void openSongControll(Song song) {
+            if(song == null)
+                return;
             changeCurrentInfo(song);
+            openConntroll(song);
             playMusic(song);
+        }
+
+        private void openConntroll(Song song) {
         }
 
         private void changeCurrentInfo(Song song) {

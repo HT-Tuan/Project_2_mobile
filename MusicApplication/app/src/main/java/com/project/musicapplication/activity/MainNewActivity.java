@@ -40,6 +40,7 @@ import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
 
 public class MainNewActivity extends AppCompatActivity {
+    private static final int LOGIN_REQUEST_CODE = 1;
     ImageView imageNav;
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
@@ -103,7 +104,9 @@ public class MainNewActivity extends AppCompatActivity {
         loginMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                ActivityUtil.openActivity(MainNewActivity.this, LoginActivity.class);
+//                ActivityUtil.openActivity(MainNewActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
+                startActivityForResult(intent, LOGIN_REQUEST_CODE);
                 return true;
             }
         });
@@ -219,6 +222,19 @@ public class MainNewActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(musicPlayerReceiver);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check if the result is from the LoginActivity
+        if (requestCode == LOGIN_REQUEST_CODE) {
+            // Check if the login was successful
+            if (resultCode == RESULT_OK) {
+                // Refresh the MainActivity to display the user's information
+                recreate();
+            }
+        }
     }
 
 }

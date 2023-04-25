@@ -1,5 +1,6 @@
 package com.project.musicapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -78,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityUtil.openActivity(LoginActivity.this, MainActivity.class);
+                setResult(RESULT_OK);
+                finish();
             }
         });
     }
@@ -106,7 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                                         if (authTask.isSuccessful()) {
                                             // Xác thực thành công
                                             Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
-                                            ActivityUtil.openActivity(this, MainActivity.class);
+                                            setResult(RESULT_OK);
+                                            finish();
                                         } else {
                                             // Xác thực không thành công
                                             Toast.makeText(getApplicationContext(), "Login failed: " + authTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -118,5 +122,4 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

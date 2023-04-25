@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
@@ -28,7 +29,8 @@ public class DanMusicPlayerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction() != null) {
-            StaticValue.mCurrentNoti = createNotification();
+            if(StaticValue.mCurrentNoti == null)
+                StaticValue.mCurrentNoti = createNotification();
             switch (enumMusicActionCode.valueOf(intent.getAction())) {
                 case PLAY:
                 case INIT:
@@ -60,7 +62,8 @@ public class DanMusicPlayerService extends Service {
     private void playMusic() {
         if (StaticValue.mCurrentSong != null) {
             try {
-                StaticValue.mMediaPlayer.reset();
+                StaticValue.mMediaPlayer.release();
+                StaticValue.mMediaPlayer = new MediaPlayer();
                 StaticValue.mMediaPlayer.setDataSource(StaticValue.mCurrentSong.getLink());
                 StaticValue.mMediaPlayer.prepare();
                 StaticValue.mMediaPlayer.start();
