@@ -2,6 +2,7 @@ package com.project.musicapplication;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,13 +15,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -34,6 +38,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.project.musicapplication.activity.LoginActivity;
+import com.project.musicapplication.adapter.ViewpageAdapter;
 import com.project.musicapplication.adapter.tuanSongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.Song;
@@ -54,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
     private RecyclerView recyclerView;
     private FirebaseFirestore mStorage;
     private ProgressBar progress_circle;
+    private boolean isSuccess = false;
+    private static final int REQUEST_CODE = 123;
+    private ViewPager viewPager;
+
 
     ImageView imageNav;
     DrawerLayout drawerLayout;
@@ -99,7 +108,8 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
         loginMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                ActivityUtil.openActivity(MainActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 return true;
             }
         });
@@ -112,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
                 firebaseObject.user = firebaseObject.mAuth.getCurrentUser();
                 Toast.makeText( MainActivity.this, "Logout success", Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
+                isSuccess = false;
+                songAdapter.filterSongs(new ArrayList<>());
                 return true;
             }
         });
@@ -153,15 +165,88 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
         player = new ExoPlayer.Builder(this).build();
         mSongs = new ArrayList<>();
         playerView = findViewById(R.id.playerView);
+
+        songAdapter = new tuanSongAdapter(MainActivity.this, mSongs, player, playerView);
+        songAdapter.setOnItemClickListener(MainActivity.this);
+        mStorage = FirebaseFirestore.getInstance();
+        songAdapter.setOnItemClickListener(MainActivity.this);
+        viewPager = findViewById(R.id.viewPager);
+        //
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(isSuccess == false)
+                    return false;
+                switch (item.getItemId()){
+                    case R.id.page_trangchu:
+                        viewPager.setCurrentItem(0);
+                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        showHome();
+                        break;
+                    case R.id.page_playlist:
+                        viewPager.setCurrentItem(1);
+                        Toast.makeText(MainActivity.this, "PlayList", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.page_canhan:
+                        viewPager.setCurrentItem(2);
+                        Toast.makeText(MainActivity.this, "Personal", Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
+                return true;
+            }
+        });
+        setUpViewPage();
+        //thong bao
+        Toast.makeText(MainActivity.this, "Bạn vui lòng đăng nhập/đăng ký trước khi sử dụng app", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void setUpViewPage() {
+        ViewpageAdapter viewpageAdapter = new ViewpageAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(viewpageAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        bottomNavigationView.getMenu().findItem(R.id.page_trangchu).setChecked(true);
+                        break;
+                    case 1:
+                        bottomNavigationView.getMenu().findItem(R.id.page_playlist).setChecked(true);
+                        break;
+                    case 2:
+                        bottomNavigationView.getMenu().findItem(R.id.page_canhan).setChecked(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+    private void showHome(){
         progress_circle = findViewById(R.id.progress_circle);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        songAdapter = new tuanSongAdapter(MainActivity.this, mSongs, player, playerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         recyclerView.setAdapter(songAdapter);
-        songAdapter.setOnItemClickListener(MainActivity.this);
-        mStorage = FirebaseFirestore.getInstance();
+
+
+        ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(songAdapter);
+        scaleInAnimationAdapter.setDuration(1000);
+        scaleInAnimationAdapter.setInterpolator(new OvershootInterpolator());
+        scaleInAnimationAdapter.setFirstOnly(false);
+        recyclerView.setAdapter(scaleInAnimationAdapter);
+        progress_circle.setVisibility(View.VISIBLE);
+
         mStorage.collection("songs").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -182,17 +267,6 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
                 }
             }
         });
-
-
-
-
-        ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(songAdapter);
-        scaleInAnimationAdapter.setDuration(1000);
-        scaleInAnimationAdapter.setInterpolator(new OvershootInterpolator());
-        scaleInAnimationAdapter.setFirstOnly(false);
-        recyclerView.setAdapter(scaleInAnimationAdapter);
-
-
     }
     private void filterSong(String query) {
         List<Song> filteredList= new ArrayList<>();
@@ -250,5 +324,16 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
             player.stop();
         }
         player.release();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                isSuccess = true;
+                bottomNavigationView.setSelectedItemId(R.id.page_trangchu);
+            }
+        }
     }
 }
