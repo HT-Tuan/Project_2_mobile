@@ -40,6 +40,7 @@ public class GetDataFromFirebaseUtil {
                         song.setName(document.getString("name"));
                         song.setSinger(document.getString("singer"));
                         song.setLink(document.getString("link"));
+                        song.setLinkimg(document.getString("linkimg"));
                         mSongList.add(song);
                     }
                     listener.onSongList(mSongList);

@@ -15,6 +15,6 @@ public class StaticValue {
     public static Song mCurrentSong = null;
     public static enumMusicActionCode curAction = enumMusicActionCode.INIT;
     public static Context mainContext;
-    public static String notificationID = "MusicPlayerService";
+    public static String notificationID = "111111";
     public static Notification mCurrentNoti = null;
 }

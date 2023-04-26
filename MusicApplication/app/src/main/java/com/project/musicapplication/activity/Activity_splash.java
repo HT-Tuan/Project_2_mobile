@@ -24,8 +24,8 @@ public class Activity_splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Activity_splash.this, MainActivity.class);
-//                Intent intent = new Intent(Activity_splash.this, MainNewActivity.class);
+//                Intent intent = new Intent(Activity_splash.this, MainActivity.class);
+                Intent intent = new Intent(Activity_splash.this, MainNewActivity.class);
                 startActivity(intent);
                 finish();
             }

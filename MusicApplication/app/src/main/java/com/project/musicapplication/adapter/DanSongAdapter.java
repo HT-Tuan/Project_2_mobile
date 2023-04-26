@@ -16,6 +16,7 @@ import com.project.musicapplication.model.Song;
 import com.project.musicapplication.service.DanMusicPlayerService;
 import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,7 +40,12 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
         Song song = songList.get(position);
         holder.tvTitle.setText(song.getName());
         holder.tvSingle.setText(song.getSinger());
-        holder.imgSong.setImageResource(R.drawable.img_cd);
+        Picasso.get()
+                .load(song.getLinkimg())
+                .placeholder(R.mipmap.ic_launcher_round)
+                .fit()
+                .centerCrop()
+                .into(holder.imgSong);
         // Set other views as needed
     }
 

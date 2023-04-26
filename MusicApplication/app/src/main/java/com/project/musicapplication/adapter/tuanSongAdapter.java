@@ -55,7 +55,7 @@ public class tuanSongAdapter extends RecyclerView.Adapter<tuanSongAdapter.SongVi
     public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
         Song songCurrent= mSong.get(position);
         holder.textViewName.setText(songCurrent.getName() + " - " + songCurrent.getSinger());
-        Picasso.with(mContext)
+        Picasso.get()
                 .load(songCurrent.getLinkimg())
                 .placeholder(R.mipmap.ic_launcher_round)
                 .fit()
