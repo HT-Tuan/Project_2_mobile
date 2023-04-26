@@ -1,5 +1,6 @@
 package com.project.musicapplication.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
     @NonNull
     @Override
     public SongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.music_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.songlist_view, parent, false);
         return new SongViewHolder(view);
     }
 
@@ -100,6 +101,11 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
             intent.setAction(enumMusicActionCode.PLAY.name());
             StaticValue.mainContext.startService(intent);
         }
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    public void filterSongs(List<Song> filteredList){
+        songList = filteredList;
+        notifyDataSetChanged();
     }
 }
 

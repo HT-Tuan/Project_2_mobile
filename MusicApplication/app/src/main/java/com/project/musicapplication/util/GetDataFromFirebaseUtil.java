@@ -44,6 +44,7 @@ public class GetDataFromFirebaseUtil {
                         mSongList.add(song);
                     }
                     listener.onSongList(mSongList);
+                    StaticValue.mSong = mSongList;
                 } else {
                     Log.d("Get document from " + collectionName + " failed", "Error getting documents: ", task.getException());
                 }

@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                             // Xác thực thành công
                                             Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
                                             setResult(RESULT_OK);
+                                            firebaseObject.user = firebaseObject.mAuth.getCurrentUser();
                                             finish();
                                         } else {
                                             // Xác thực không thành công

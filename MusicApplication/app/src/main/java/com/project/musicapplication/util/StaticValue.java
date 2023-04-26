@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import com.project.musicapplication.adapter.DanSongAdapter;
 import com.project.musicapplication.model.Song;
 
 import java.util.ArrayList;
@@ -17,4 +18,7 @@ public class StaticValue {
     public static Context mainContext;
     public static String notificationID = "111111";
     public static Notification mCurrentNoti = null;
+
+    public static List<Song> mSong;
+    public static DanSongAdapter songAdapter;
 }

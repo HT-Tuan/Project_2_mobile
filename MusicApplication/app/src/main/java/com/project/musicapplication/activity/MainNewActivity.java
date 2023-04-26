@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +31,15 @@ import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.fragment.homeFragment;
 import com.project.musicapplication.fragment.personalFragment;
 import com.project.musicapplication.fragment.playlistFragment;
+import com.project.musicapplication.model.Song;
 import com.project.musicapplication.service.DanMusicPlayerService;
 import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MainNewActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST_CODE = 1;
@@ -46,6 +53,7 @@ public class MainNewActivity extends AppCompatActivity {
     ImageView imgPlayOrPause, img_song, img_pre, img_next;
     TextView tv_title_song, tv_single_song;
     Fragment fragment;
+    SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +70,7 @@ public class MainNewActivity extends AppCompatActivity {
         imageNav = findViewById(R.id.image_nav);
         imgPlayOrPause = findViewById(R.id.img_play_or_pause);
         drawerLayout = findViewById(R.id.drawer_layout);
+        searchView = findViewById(R.id.search_view);
 
         fragment = new homeFragment();
         loadFragment(fragment);
@@ -73,10 +82,6 @@ public class MainNewActivity extends AppCompatActivity {
                         // Thực hiện các hành động khi người dùng chọn trang chủ
                         fragment = new homeFragment();
                         break;
-//                    case R.id.page_timkiem:
-                        // Thực hiện các hành động khi người dùng chọn tìm kiếm
-//                        fragment = new searchFragment();
-//                        break;
                     case R.id.page_playlist:
                         // Thực hiện các hành động khi người dùng chọn playlist
                         fragment = new playlistFragment();
@@ -143,6 +148,34 @@ public class MainNewActivity extends AppCompatActivity {
                 StaticValue.mainContext.startService(intent);
             }
         });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterSong(newText.toLowerCase());
+                return true;
+            }
+        });
+
+    }
+
+    private void filterSong(String query) {
+        List<Song> filteredList= new ArrayList<>();
+        if(StaticValue.mSong.size() > 0){
+            for (Song song: StaticValue.mSong){
+                if (song.getName().toLowerCase().contains(query)){
+                    filteredList.add(song);
+                }
+            }
+        }
+        if (StaticValue.songAdapter != null){
+            StaticValue.songAdapter.filterSongs(filteredList);
+        }
 
     }
 
