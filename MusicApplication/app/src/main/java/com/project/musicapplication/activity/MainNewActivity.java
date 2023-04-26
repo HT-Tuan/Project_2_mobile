@@ -237,15 +237,6 @@ public class MainNewActivity extends AppCompatActivity{
                 }
             }
         });
-
-        StaticValue.mMediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
-            @Override
-            public void onSeekComplete(MediaPlayer mediaPlayer) {
-
-                    System.out.println("oke");
-
-            }
-        });
     }
     private void exitPlayerView(){
         playerView.setVisibility(View.GONE);
