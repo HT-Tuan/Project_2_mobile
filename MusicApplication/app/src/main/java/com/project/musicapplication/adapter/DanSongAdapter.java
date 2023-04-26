@@ -3,7 +3,10 @@ package com.project.musicapplication.adapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,6 +27,7 @@ import java.util.List;
 public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongViewHolder>  {
 
     private static List<Song> songList;
+    private OnItemClickListener mListener;
 
     public DanSongAdapter(List<Song> songList) {
         this.songList = songList;
@@ -55,9 +59,10 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
         return songList.size();
     }
 
-    public static class SongViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class SongViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
         public TextView tvTitle, tvSingle;
-        public ImageView imgSong, imgMore;
+        public ImageView imgSong, imgMore, imagemore;
+
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,8 +70,8 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
             tvSingle = itemView.findViewById(R.id.tv_single_song);
             imgSong = itemView.findViewById(R.id.img_song);
             imgMore = itemView.findViewById(R.id.img_more);
-
             itemView.setOnClickListener(this);
+            imgMore.setOnCreateContextMenuListener(this);
         }
 
         @Override
@@ -83,12 +88,9 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
             if(song == null)
                 return;
             changeCurrentInfo(song);
-            openConntroll(song);
             playMusic(song);
         }
 
-        private void openConntroll(Song song) {
-        }
 
         private void changeCurrentInfo(Song song) {
             StaticValue.mCurrentSong = song;
@@ -101,11 +103,52 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
             intent.setAction(enumMusicActionCode.PLAY.name());
             StaticValue.mainContext.startService(intent);
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Lựa chọn");
+            MenuItem Add_Playlist = menu.add(Menu.NONE, 1, 1, "Thêm vào danh sách phát");
+            MenuItem Upload = menu.add(Menu.NONE, 2, 2, "Tải nhạc xuống");
+
+            Add_Playlist.setOnMenuItemClickListener(this);
+            Upload.setOnMenuItemClickListener(this);
+
+        }
+
+        @Override
+        public boolean onMenuItemClick(@NonNull MenuItem item) {
+            if (mListener != null) {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+
+                    switch (item.getItemId()) {
+                        case 1:
+//                            mListener.onAdd_PlaylistClick(position);
+                            return true;
+                        case 2:
+//                            mListener.onUploadClick(position);
+                            return true;
+                        case 3:
+//                              mListener.onDownloadClick(position);
+                            return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
     @SuppressLint("NotifyDataSetChanged")
     public void filterSongs(List<Song> filteredList){
         songList = filteredList;
         notifyDataSetChanged();
+    }
+    public void setOnItemClickListener(DanSongAdapter.OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnItemClickListener {
+//        void onDownloadClick(int position);
+//        void onAdd_PlaylistClick(int position);
     }
 }
 

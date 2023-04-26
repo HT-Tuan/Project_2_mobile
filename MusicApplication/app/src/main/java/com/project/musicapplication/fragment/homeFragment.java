@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.project.musicapplication.MainActivity;
 import com.project.musicapplication.R;
+import com.project.musicapplication.activity.MainNewActivity;
 import com.project.musicapplication.adapter.DanSongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.Song;
