@@ -1,14 +1,20 @@
 package com.project.musicapplication.fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.project.musicapplication.R;
+import com.project.musicapplication.adapter.DanSongAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +67,8 @@ public class playlistFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_playlist, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_personal, container, false);
+
+        return rootView;
     }
 }

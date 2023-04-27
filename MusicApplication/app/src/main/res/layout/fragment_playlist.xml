@@ -51,8 +51,8 @@
                 app:strokeWidth="1dp" />
         </LinearLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="417dp"
             android:layout_height="649dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,8 +60,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="1.0"
-            tools:listitem="@layout/playlist_view" />
+            app:layout_constraintVertical_bias="1.0"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

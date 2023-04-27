@@ -119,6 +119,11 @@ public class FirebaseUtil {
         });
     }
 
+    public static void getAllPlaylistsByUserEmail(String userEmail, OnPlaylistListListener listener) {
+        getPlaylistFromFirebase("playlists", "email", userEmail, null, null, listener);
+    }
+
+
     public interface OnSongListener {
         void onSong(Song song);
     }

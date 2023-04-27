@@ -20,7 +20,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/playlist_view"
+        tools:listitem="@layout/playlist_music_view"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/search_song"
         />
