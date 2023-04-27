@@ -4,14 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.homeFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <RelativeLayout
+        android:id="@+id/review"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/music_view"
-        android:layout_below="@id/layoutToolbar"
+        android:layout_below="@id/appBar"
         android:layout_above="@+id/notification"
-        />
+        android:background="#DCF5FC"
+        >
+
+        <ProgressBar
+            android:id="@+id/progress_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
 
 </FrameLayout>

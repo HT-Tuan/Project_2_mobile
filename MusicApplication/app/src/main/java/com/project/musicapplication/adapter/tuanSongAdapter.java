@@ -69,7 +69,7 @@ public class tuanSongAdapter extends RecyclerView.Adapter<tuanSongAdapter.SongVi
         public SongViewHolder(View itemview){
             super(itemview);
 
-            textViewName = (TextView)itemview.findViewById(R.id.titleView);
+//            textViewName = (TextView)itemview.findViewById(R.id.titleView);
             imageView = (ImageView)itemview.findViewById(R.id.img_song);
             imagemore = (ImageView)itemview.findViewById(R.id.img_more);
             itemview.setOnClickListener(this);

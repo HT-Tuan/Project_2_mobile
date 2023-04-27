@@ -20,4 +20,9 @@ public class StaticValue {
     public static Context mainContext;
     public static String notificationID = "111111";
     public static Notification mCurrentNoti = null;
+
+    public static List<Song> mSong;
+    public static DanSongAdapter songAdapter;
+    public static RecyclerView recyclerView;
+    public static int currentIndex = 0;
 }

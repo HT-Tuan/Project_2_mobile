@@ -42,7 +42,6 @@ import com.project.musicapplication.adapter.ViewpageAdapter;
 import com.project.musicapplication.adapter.tuanSongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.Song;
-import com.project.musicapplication.util.ActivityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
         logoutMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
+
                 firebaseObject.myUser = null;
                 FirebaseAuth.getInstance().signOut();
                 firebaseObject.mAuth = FirebaseAuth.getInstance();
@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements tuanSongAdapter.O
         songAdapter = new tuanSongAdapter(MainActivity.this, mSongs, player, playerView);
         songAdapter.setOnItemClickListener(MainActivity.this);
         mStorage = FirebaseFirestore.getInstance();
-        songAdapter.setOnItemClickListener(MainActivity.this);
         viewPager = findViewById(R.id.viewPager);
         //
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
