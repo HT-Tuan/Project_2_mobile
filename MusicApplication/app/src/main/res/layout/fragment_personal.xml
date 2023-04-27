@@ -25,18 +25,21 @@
             app:tabTextColor="@color/white">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/itemDaTai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_download"
                 android:text="Đã tải" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/itemYeuThich"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_love"
                 android:text="Yêu thích" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/itemGanDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_history"
@@ -44,37 +47,14 @@
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="411dp"
-            android:layout_height="670dp"
+            android:id="@+id/recyclerViewSongs"
+            android:layout_width="381dp"
+            android:layout_height="672dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout"
             tools:listitem="@layout/music_view" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-            tools:listitem="@layout/music_view"
-            android:visibility="gone"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-            tools:listitem="@layout/music_view"
-            android:visibility="gone"
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

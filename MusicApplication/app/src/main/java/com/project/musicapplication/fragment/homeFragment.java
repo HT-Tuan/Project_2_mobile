@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.project.musicapplication.R;
 import com.project.musicapplication.adapter.DanSongAdapter;
 import com.project.musicapplication.model.Song;
-import com.project.musicapplication.util.GetDataFromFirebaseUtil;
+import com.project.musicapplication.util.FirebaseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +78,7 @@ public class homeFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         // Initialize the songList and songAdapter as needed
-        GetDataFromFirebaseUtil.getSongFromFirebase("songs", 10, new GetDataFromFirebaseUtil.OnSongListListener() {
+        FirebaseUtil.getSongFromFirebase("songs", 30, new FirebaseUtil.OnSongListListener() {
             @Override
             public void onSongList(List<Song> songListIp) {
                 if(songListIp != null){

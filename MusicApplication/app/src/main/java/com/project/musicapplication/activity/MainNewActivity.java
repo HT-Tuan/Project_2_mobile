@@ -30,6 +30,7 @@ import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.fragment.homeFragment;
 import com.project.musicapplication.fragment.personalFragment;
 import com.project.musicapplication.fragment.playlistFragment;
+import com.project.musicapplication.model.PlayList;
 import com.project.musicapplication.service.DanMusicPlayerService;
 import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
@@ -50,7 +51,7 @@ public class MainNewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
-        StaticValue.mainContext = getApplicationContext();
+        StaticValue.mainContext = this;
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.page_trangchu);
@@ -108,11 +109,17 @@ public class MainNewActivity extends AppCompatActivity {
         logoutMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
+                if(firebaseObject.user == null)
+                {
+                    Toast.makeText( MainNewActivity.this, "Please login to do this action", Toast.LENGTH_LONG).show();
+                    return true;
+                }
                 firebaseObject.myUser = null;
                 FirebaseAuth.getInstance().signOut();
                 firebaseObject.mAuth = FirebaseAuth.getInstance();
                 firebaseObject.user = firebaseObject.mAuth.getCurrentUser();
                 firebaseObject.db = FirebaseFirestore.getInstance();
+                StaticValue.favoriteList = new PlayList();
                 Toast.makeText( MainNewActivity.this, "Logout success", Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -211,6 +218,7 @@ public class MainNewActivity extends AppCompatActivity {
         filter.addAction(enumMusicActionCode.PRE.name());
         filter.addAction(enumMusicActionCode.INIT.name());
         registerReceiver(musicPlayerReceiver, filter);
+        StaticValue.mainContext = this;
     }
 
     @Override

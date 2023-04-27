@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:clickable="true"
         android:id="@+id/page_trangchu"
         android:enabled="true"
         android:icon="@drawable/ic_homepage"
         android:title="@string/trangchu"/>
     <item
         android:id="@+id/page_playlist"
+        android:clickable="true"
         android:enabled="true"
         android:icon="@drawable/ic_playlist"
         android:title="@string/playlist"/>
     <item
         android:id="@+id/page_canhan"
+        android:clickable="true"
         android:enabled="true"
         android:icon="@drawable/ic_personal"
         android:title="@string/canhan"/>

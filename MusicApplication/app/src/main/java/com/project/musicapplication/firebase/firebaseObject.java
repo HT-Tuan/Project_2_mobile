@@ -3,6 +3,7 @@ package com.project.musicapplication.firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.project.musicapplication.model.MyUser;
 
 public class firebaseObject {
@@ -10,4 +11,5 @@ public class firebaseObject {
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public static FirebaseUser user = mAuth.getCurrentUser();
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public static FirebaseStorage storage = FirebaseStorage.getInstance();
 }

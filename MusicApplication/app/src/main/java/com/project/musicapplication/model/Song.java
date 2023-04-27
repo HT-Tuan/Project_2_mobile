@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Song implements Serializable {
     private String id;
     private String name;
-    private String singer;
+    private String singer = "Unknow";
     private String link;
     private String linkimg;
     private String mKey;

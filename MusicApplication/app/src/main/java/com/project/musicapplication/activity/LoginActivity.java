@@ -21,7 +21,12 @@ import com.project.musicapplication.MainActivity;
 import com.project.musicapplication.R;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.MyUser;
+import com.project.musicapplication.model.PlayList;
 import com.project.musicapplication.util.ActivityUtil;
+import com.project.musicapplication.util.FirebaseUtil;
+import com.project.musicapplication.util.StaticValue;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -111,8 +116,20 @@ public class LoginActivity extends AppCompatActivity {
                                     .addOnCompleteListener(authTask -> {
                                         if (authTask.isSuccessful()) {
                                             // Xác thực thành công
+                                            firebaseObject.user = firebaseObject.mAuth.getCurrentUser();
                                             Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
                                             setResult(RESULT_OK);
+
+                                            FirebaseUtil.getPlaylistFromFirebase("playlists", "email", firebaseObject.user.getEmail(), "tag", "YeuThich", new FirebaseUtil.OnPlaylistListListener() {
+                                                @Override
+                                                public void onSongList(List<PlayList> playLists) {
+                                                    if(playLists != null && playLists.size() > 0){
+
+                                                        StaticValue.favoriteList = playLists.get(0);
+                                                    } else
+                                                        StaticValue.favoriteList = new PlayList();
+                                                }
+                                            });
                                             finish();
                                         } else {
                                             // Xác thực không thành công

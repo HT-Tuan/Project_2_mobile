@@ -57,6 +57,7 @@
             style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:menu="@menu/bottom_navigation_menu"
             app:labelVisibilityMode="labeled"
             app:itemRippleColor="@color/main_color"
