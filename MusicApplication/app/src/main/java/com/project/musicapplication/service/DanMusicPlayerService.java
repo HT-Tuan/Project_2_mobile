@@ -104,7 +104,7 @@ public class DanMusicPlayerService extends Service {
         if(StaticValue.currentIndex > 0){
             StaticValue.currentIndex = StaticValue.currentIndex - 1;
             StaticValue.recyclerView.findViewHolderForAdapterPosition(StaticValue.currentIndex).itemView.performClick();
-        };
+        }
     }
     private void skipToNextSong(){
         if(StaticValue.currentIndex < StaticValue.mSong.size()){

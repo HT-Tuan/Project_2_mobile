@@ -63,7 +63,7 @@ public class MainNewActivity extends AppCompatActivity{
     NavigationView navigationView;
     Menu menu;
     MenuItem loginMenuItem, logoutMenuItem;
-    LinearLayout notification, notification_home;
+    LinearLayout notification_home;
     ImageView imgPlayOrPause, imgplayorpause, img_song, img_next, img_pre, img_pre_home, img_next_home;
     TextView tv_title_song, tv_single_song, durationView, progressView, songNameView;
     Fragment fragment;

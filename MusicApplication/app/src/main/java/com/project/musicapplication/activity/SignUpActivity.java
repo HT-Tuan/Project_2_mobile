@@ -17,11 +17,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.project.musicapplication.MainActivity;
 import com.project.musicapplication.R;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.MyUser;
-import com.project.musicapplication.util.ActivityUtil;
 
 public class SignUpActivity extends AppCompatActivity {
     TextInputLayout emailEditTextLayout, passwordEditTextLayout;

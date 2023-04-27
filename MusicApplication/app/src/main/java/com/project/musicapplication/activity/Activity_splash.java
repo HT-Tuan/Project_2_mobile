@@ -7,7 +7,6 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.project.musicapplication.MainActivity;
 import com.project.musicapplication.R;
 
 public class Activity_splash extends AppCompatActivity {

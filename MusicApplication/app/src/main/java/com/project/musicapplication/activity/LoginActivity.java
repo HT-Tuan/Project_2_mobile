@@ -9,20 +9,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.project.musicapplication.MainActivity;
 import com.project.musicapplication.R;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.MyUser;
 import com.project.musicapplication.model.PlayList;
-import com.project.musicapplication.util.ActivityUtil;
 import com.project.musicapplication.util.FirebaseUtil;
 import com.project.musicapplication.util.StaticValue;
 
