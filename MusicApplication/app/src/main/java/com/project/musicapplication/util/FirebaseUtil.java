@@ -208,7 +208,13 @@ public class FirebaseUtil {
     public static void addSongToFirestore(Song song, OnUploadSongListener listener) {
         FirebaseFirestore db = firebaseObject.db;
         CollectionReference collectionRef = db.collection("songs");
-        collectionRef.add(song).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        Map<String, Object> songMap = new HashMap<>();
+        songMap.put("name", song.getName());
+        songMap.put("singer", song.getSinger());
+        songMap.put("link", song.getLink());
+        songMap.put("linkimg", "");
+
+        collectionRef.add(songMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d("UPLOAD", "DocumentSnapshot added with ID: " + documentReference.getId());

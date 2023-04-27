@@ -30,6 +30,7 @@ import com.project.musicapplication.adapter.DanSongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.Song;
 import com.project.musicapplication.util.FirebaseUtil;
+import com.project.musicapplication.util.StaticValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,12 +97,10 @@ public class homeFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        // Initialize the songList and songAdapter as needed
-        FirebaseUtil.getSongFromFirebase("songs", 30, new FirebaseUtil.OnSongListListener() {
-        recyclerView.setAdapter(songAdapter);
+        // Initialize the songList and songAdapter as neededw.setAdapter(songAdapter);
         progressBar = rootView.findViewById(R.id.progress_circle);
 //         Initialize the songList and songAdapter as needed
-        GetDataFromFirebaseUtil.getSongFromFirebase("songs", 20, new GetDataFromFirebaseUtil.OnSongListListener() {
+            FirebaseUtil.getSongFromFirebase("songs", 30, new FirebaseUtil.OnSongListListener()  {
             @Override
             public void onSongList(List<Song> songListIp) {
                 if(songListIp != null){

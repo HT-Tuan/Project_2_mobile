@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/appBar"
         android:layout_above="@+id/notification"
-        android:background="#DCF5FC"
+        android:background="@color/sub_color"
         >
 
         <ProgressBar
@@ -21,6 +21,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:backgroundTint="@color/main_color"
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
