@@ -287,7 +287,8 @@ public class MainActivity extends AppCompatActivity{
 
     }
     private void showPicture(){
-        Picasso.get().load(StaticValue.mCurrentSong.getLinkimg()).fit().into(shapeableImageView);
+        if(StaticValue.mCurrentSong.getLinkimg() != null && StaticValue.mCurrentSong.getLinkimg() != "")
+            Picasso.get().load(StaticValue.mCurrentSong.getLinkimg()).fit().into(shapeableImageView);
         if(shapeableImageView.getDrawable() == null){
             shapeableImageView.setImageResource(R.drawable.img_cd);
         }
@@ -362,7 +363,10 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction() != null) {
-                Picasso.get().load(StaticValue.mCurrentSong.getLinkimg()).into(img_song);
+                if(StaticValue.mCurrentSong.getLinkimg() != null && StaticValue.mCurrentSong.getLinkimg() != "")
+                    Picasso.get().load(StaticValue.mCurrentSong.getLinkimg()).into(img_song);
+                else
+                    img_song.setImageResource(R.drawable.img_cd);
                 tv_single_song.setText(StaticValue.mCurrentSong.getSinger());
                 tv_title_song.setText(StaticValue.mCurrentSong.getName());
                 songNameView.setText(StaticValue.mCurrentSong.getName() + " - " +StaticValue.mCurrentSong.getSinger());
