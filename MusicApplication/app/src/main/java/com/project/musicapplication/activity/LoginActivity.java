@@ -19,7 +19,7 @@ import com.project.musicapplication.R;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.MyUser;
 import com.project.musicapplication.model.PlayList;
-import com.project.musicapplication.util.FirebaseUtil;
+import com.project.musicapplication.firebase.FirebaseUtil;
 import com.project.musicapplication.util.StaticValue;
 
 import java.util.List;

@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.musicapplication.R;
 import com.project.musicapplication.adapter.DanSongAdapter;
 import com.project.musicapplication.model.Song;
-import com.project.musicapplication.util.FirebaseUtil;
+import com.project.musicapplication.firebase.FirebaseUtil;
 import com.project.musicapplication.util.StaticValue;
 
 import java.util.ArrayList;

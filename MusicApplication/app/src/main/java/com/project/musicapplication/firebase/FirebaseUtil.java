@@ -1,4 +1,4 @@
-package com.project.musicapplication.util;
+package com.project.musicapplication.firebase;
 
 import android.content.Context;
 import android.net.Uri;

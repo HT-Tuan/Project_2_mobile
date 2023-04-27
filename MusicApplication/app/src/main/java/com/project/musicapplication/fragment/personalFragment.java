@@ -22,7 +22,7 @@ import com.project.musicapplication.adapter.DanSongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.PlayList;
 import com.project.musicapplication.model.Song;
-import com.project.musicapplication.util.FirebaseUtil;
+import com.project.musicapplication.firebase.FirebaseUtil;
 import com.project.musicapplication.util.StaticValue;
 
 import java.io.File;
