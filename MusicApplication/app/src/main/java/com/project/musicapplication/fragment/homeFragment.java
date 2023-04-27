@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.musicapplication.R;
-import com.project.musicapplication.adapter.DanSongAdapter;
+import com.project.musicapplication.adapter.SongAdapter;
 import com.project.musicapplication.model.Song;
 import com.project.musicapplication.firebase.FirebaseUtil;
 import com.project.musicapplication.util.StaticValue;
@@ -40,7 +40,7 @@ public class homeFragment extends Fragment {
     private String mParam2;
 
     private RecyclerView recyclerView;
-    private DanSongAdapter songAdapter;
+    private SongAdapter songAdapter;
     private List<Song> songList;
     private ProgressBar progressBar;
     private FirebaseFirestore mStorage;
@@ -91,7 +91,7 @@ public class homeFragment extends Fragment {
             public void onSongList(List<Song> songListIp) {
                 if(songListIp != null){
                     songList = songListIp;
-                    songAdapter = new DanSongAdapter(songList);
+                    songAdapter = new SongAdapter(songList);
                     recyclerView.setAdapter(songAdapter);
                     StaticValue.songAdapter = songAdapter;
                 }

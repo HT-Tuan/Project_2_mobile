@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.project.musicapplication.R;
-import com.project.musicapplication.adapter.DanSongAdapter;
+import com.project.musicapplication.adapter.SongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.PlayList;
 import com.project.musicapplication.model.Song;
@@ -48,7 +48,7 @@ public class personalFragment extends Fragment implements TabLayout.OnTabSelecte
 
     private TabLayout tabLayout;
     private RecyclerView recyclerView;
-    private DanSongAdapter adapter;
+    private SongAdapter adapter;
     private List<Song> songs = new ArrayList<>();
 
     public personalFragment() {
@@ -105,7 +105,7 @@ public class personalFragment extends Fragment implements TabLayout.OnTabSelecte
             // Do something with localSongs
         }
         songs = getLocalSongs();
-        adapter = new DanSongAdapter(songs);
+        adapter = new SongAdapter(songs);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         tabLayout.addOnTabSelectedListener(this);
@@ -167,7 +167,7 @@ public class personalFragment extends Fragment implements TabLayout.OnTabSelecte
                 break;
         }
 
-        adapter = new DanSongAdapter(songs);
+        adapter = new SongAdapter(songs);
         recyclerView.setAdapter(adapter);
     }
 

@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
@@ -16,11 +15,10 @@ import androidx.core.app.NotificationCompat;
 import com.project.musicapplication.R;
 import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
-public class DanMusicPlayerService extends Service {
+public class MusicPlayerService extends Service {
 
     @Override
     public void onCreate() {
@@ -134,7 +132,7 @@ public class DanMusicPlayerService extends Service {
         remoteViews.setTextViewText(R.id.tv_title_song, StaticValue.mCurrentSong.getName());
         remoteViews.setTextViewText(R.id.tv_single_song, StaticValue.mCurrentSong.getSinger());
 
-        Intent intent = new Intent(this, DanMusicPlayerService.class);
+        Intent intent = new Intent(this, MusicPlayerService.class);
         PendingIntent pendingIntent = null;
 
         intent.setAction(enumMusicActionCode.NEXT.name());

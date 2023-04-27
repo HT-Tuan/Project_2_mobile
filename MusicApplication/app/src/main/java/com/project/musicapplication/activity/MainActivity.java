@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,30 +31,27 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.project.musicapplication.R;
-import com.project.musicapplication.adapter.DanSongAdapter;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.fragment.homeFragment;
 import com.project.musicapplication.fragment.personalFragment;
 import com.project.musicapplication.fragment.playlistFragment;
 import com.project.musicapplication.model.PlayList;
 import com.project.musicapplication.model.Song;
-import com.project.musicapplication.service.DanMusicPlayerService;
+import com.project.musicapplication.service.MusicPlayerService;
 import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class MainNewActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity{
     private static final int LOGIN_REQUEST_CODE = 1;
     ImageView imageNav;
     DrawerLayout drawerLayout;
@@ -136,7 +132,7 @@ public class MainNewActivity extends AppCompatActivity{
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 //                ActivityUtil.openActivity(MainNewActivity.this, LoginActivity.class);
-                Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivityForResult(intent, LOGIN_REQUEST_CODE);
                 return true;
             }
@@ -146,7 +142,7 @@ public class MainNewActivity extends AppCompatActivity{
             public boolean onMenuItemClick(@NonNull MenuItem item) {
                 if(firebaseObject.user == null)
                 {
-                    Toast.makeText( MainNewActivity.this, "Please login to do this action", Toast.LENGTH_LONG).show();
+                    Toast.makeText( MainActivity.this, "Please login to do this action", Toast.LENGTH_LONG).show();
                     return true;
                 }
                 firebaseObject.myUser = null;
@@ -155,7 +151,7 @@ public class MainNewActivity extends AppCompatActivity{
                 firebaseObject.user = firebaseObject.mAuth.getCurrentUser();
                 firebaseObject.db = FirebaseFirestore.getInstance();
                 StaticValue.favoriteList = new PlayList();
-                Toast.makeText( MainNewActivity.this, "Logout success", Toast.LENGTH_LONG).show();
+                Toast.makeText( MainActivity.this, "Logout success", Toast.LENGTH_LONG).show();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -177,7 +173,7 @@ public class MainNewActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if(StaticValue.curAction == enumMusicActionCode.INIT || StaticValue.curAction == null)
                     return;
-                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                Intent intent = new Intent(StaticValue.mainContext, MusicPlayerService.class);
                 if(StaticValue.curAction == enumMusicActionCode.PAUSE){
                     intent.setAction(String.valueOf(enumMusicActionCode.RESUME));
                 } else
@@ -190,7 +186,7 @@ public class MainNewActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if(StaticValue.curAction == enumMusicActionCode.INIT || StaticValue.curAction == null)
                     return;
-                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                Intent intent = new Intent(StaticValue.mainContext, MusicPlayerService.class);
                 if(StaticValue.curAction == enumMusicActionCode.PAUSE){
                     intent.setAction(String.valueOf(enumMusicActionCode.RESUME));
                 } else
@@ -201,7 +197,7 @@ public class MainNewActivity extends AppCompatActivity{
         img_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                Intent intent = new Intent(StaticValue.mainContext, MusicPlayerService.class);
                 intent.setAction(String.valueOf(enumMusicActionCode.NEXT));
                 StaticValue.mainContext.startService(intent);
             }
@@ -209,7 +205,7 @@ public class MainNewActivity extends AppCompatActivity{
         img_next_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                Intent intent = new Intent(StaticValue.mainContext, MusicPlayerService.class);
                 intent.setAction(String.valueOf(enumMusicActionCode.NEXT));
                 StaticValue.mainContext.startService(intent);
             }
@@ -218,7 +214,7 @@ public class MainNewActivity extends AppCompatActivity{
         img_pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                Intent intent = new Intent(StaticValue.mainContext, MusicPlayerService.class);
                 intent.setAction(String.valueOf(enumMusicActionCode.PRE));
                 StaticValue.mainContext.startService(intent);
             }
@@ -226,7 +222,7 @@ public class MainNewActivity extends AppCompatActivity{
         img_pre_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                Intent intent = new Intent(StaticValue.mainContext, MusicPlayerService.class);
                 intent.setAction(String.valueOf(enumMusicActionCode.PRE));
                 StaticValue.mainContext.startService(intent);
             }

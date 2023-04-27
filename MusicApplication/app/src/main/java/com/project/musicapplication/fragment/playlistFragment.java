@@ -1,20 +1,14 @@
 package com.project.musicapplication.fragment;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.project.musicapplication.R;
-import com.project.musicapplication.adapter.DanSongAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

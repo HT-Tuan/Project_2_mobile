@@ -30,7 +30,7 @@ import com.project.musicapplication.MainApp;
 import com.project.musicapplication.R;
 import com.project.musicapplication.firebase.firebaseObject;
 import com.project.musicapplication.model.Song;
-import com.project.musicapplication.service.DanMusicPlayerService;
+import com.project.musicapplication.service.MusicPlayerService;
 import com.project.musicapplication.firebase.FirebaseUtil;
 import com.project.musicapplication.util.StaticValue;
 import com.project.musicapplication.util.enumMusicActionCode;
@@ -43,19 +43,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongViewHolder>  {
+public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>  {
 
     private static List<Song> songList;
     private OnItemClickListener mListener;
 
-    public DanSongAdapter(List<Song> songList) {
+    public SongAdapter(List<Song> songList) {
         this.songList = songList;
     }
 
     @NonNull
     @Override
     public SongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.songlist_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.music_view, parent, false);
         return new SongViewHolder(view);
     }
 
@@ -306,7 +306,7 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
 
         private void playMusic(Song song) {
             Log.i("PLAY song", song.getName());
-            Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+            Intent intent = new Intent(StaticValue.mainContext, MusicPlayerService.class);
             StaticValue.curAction = enumMusicActionCode.PLAY;
             intent.setAction(enumMusicActionCode.PLAY.name());
             StaticValue.mainContext.startService(intent);
@@ -350,7 +350,7 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
         songList = filteredList;
         notifyDataSetChanged();
     }
-    public void setOnItemClickListener(DanSongAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(SongAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 

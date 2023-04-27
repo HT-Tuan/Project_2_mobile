@@ -24,10 +24,10 @@ public class Activity_splash extends AppCompatActivity {
             @Override
             public void run() {
 //                Intent intent = new Intent(Activity_splash.this, MainActivity.class);
-                Intent intent = new Intent(Activity_splash.this, MainNewActivity.class);
+                Intent intent = new Intent(Activity_splash.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
-        },500);
+        },1000);
     }
 }

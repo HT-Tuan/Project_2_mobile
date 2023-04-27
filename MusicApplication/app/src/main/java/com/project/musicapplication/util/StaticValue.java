@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.musicapplication.adapter.DanSongAdapter;
+import com.project.musicapplication.adapter.SongAdapter;
 import com.project.musicapplication.model.PlayList;
 import com.project.musicapplication.model.Song;
 
@@ -25,7 +25,7 @@ public class StaticValue {
     public static Notification mCurrentNoti = null;
 
     public static List<Song> mSong = new ArrayList<>();
-    public static DanSongAdapter songAdapter;
+    public static SongAdapter songAdapter;
     public static RecyclerView recyclerView;
     public static int currentIndex = 0;
 }
