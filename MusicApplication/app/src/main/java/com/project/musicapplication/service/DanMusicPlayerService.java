@@ -49,9 +49,13 @@ public class DanMusicPlayerService extends Service {
                     break;
                 case NEXT:
                     StaticValue.curAction = enumMusicActionCode.NEXT;
+                    skipToNextSong();
+                    startForeground(1, StaticValue.mCurrentNoti);
                     break;
                 case PRE:
                     StaticValue.curAction = enumMusicActionCode.PRE;
+                    skipToPreviousSong();
+                    startForeground(1, StaticValue.mCurrentNoti);
                     break;
             }
         }
@@ -94,6 +98,19 @@ public class DanMusicPlayerService extends Service {
         sendBroadcast(intent);
     }
 
+    private void skipToPreviousSong(){
+        if(StaticValue.currentIndex > 0){
+            StaticValue.currentIndex = StaticValue.currentIndex - 1;
+            StaticValue.recyclerView.findViewHolderForAdapterPosition(StaticValue.currentIndex).itemView.performClick();
+        };
+    }
+    private void skipToNextSong(){
+        if(StaticValue.currentIndex < StaticValue.mSong.size()){
+            StaticValue.currentIndex = StaticValue.currentIndex + 1;
+            StaticValue.recyclerView.findViewHolderForAdapterPosition(StaticValue.currentIndex).itemView.performClick();
+        }
+    }
+
 
     @Override
     public void onDestroy() {
@@ -117,6 +134,14 @@ public class DanMusicPlayerService extends Service {
         Intent intent = new Intent(this, DanMusicPlayerService.class);
         PendingIntent pendingIntent = null;
 
+        intent.setAction(enumMusicActionCode.NEXT.name());
+        pendingIntent = PendingIntent.getService(StaticValue.mainContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.img_next, pendingIntent);
+
+        intent.setAction(enumMusicActionCode.PRE.name());
+        pendingIntent = PendingIntent.getService(StaticValue.mainContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.img_pre, pendingIntent);
+
         switch (StaticValue.curAction) {
             case PLAY:
 
@@ -139,7 +164,6 @@ public class DanMusicPlayerService extends Service {
                 break;
 
             case NEXT:
-                // Update UI to show the next song
                 break;
             case PRE:
                 // Update UI to show the previous song

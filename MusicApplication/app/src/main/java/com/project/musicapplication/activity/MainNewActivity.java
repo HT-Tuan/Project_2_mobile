@@ -63,7 +63,7 @@ public class MainNewActivity extends AppCompatActivity{
     Menu menu;
     MenuItem loginMenuItem, logoutMenuItem;
     LinearLayout notification, notification_home;
-    ImageView imgPlayOrPause, imgplayorpause, img_song, img_pre, img_next;
+    ImageView imgPlayOrPause, imgplayorpause, img_song, img_next, img_pre, img_pre_home, img_next_home;
     TextView tv_title_song, tv_single_song, durationView, progressView, songNameView;
     Fragment fragment;
     SearchView searchView;
@@ -80,13 +80,16 @@ public class MainNewActivity extends AppCompatActivity{
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.page_trangchu);
         img_song = findViewById(R.id.img_song);
-        img_pre = findViewById(R.id.img_pre);
         tv_single_song = findViewById(R.id.tv_single_song);
         tv_title_song = findViewById(R.id.tv_title_song);
         navigationView = findViewById(R.id.navigation_view);
         imageNav = findViewById(R.id.image_nav);
         imgPlayOrPause = findViewById(R.id.img_play_or_pause);
         imgplayorpause = findViewById(R.id.imgplayorpause);
+        img_next_home = findViewById(R.id.img_next_home);
+        img_pre_home = findViewById(R.id.img_pre_home);
+        img_next = findViewById(R.id.img_next);
+        img_pre = findViewById(R.id.img_pre);
         drawerLayout = findViewById(R.id.drawer_layout);
         searchView = findViewById(R.id.search_view);
         playerView = findViewById(R.id.playerView);
@@ -188,6 +191,40 @@ public class MainNewActivity extends AppCompatActivity{
                 StaticValue.mainContext.startService(intent);
             }
         });
+        img_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                intent.setAction(String.valueOf(enumMusicActionCode.NEXT));
+                StaticValue.mainContext.startService(intent);
+            }
+        });
+        img_next_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                intent.setAction(String.valueOf(enumMusicActionCode.NEXT));
+                StaticValue.mainContext.startService(intent);
+            }
+        });
+
+        img_pre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                intent.setAction(String.valueOf(enumMusicActionCode.PRE));
+                StaticValue.mainContext.startService(intent);
+            }
+        });
+        img_pre_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StaticValue.mainContext, DanMusicPlayerService.class);
+                intent.setAction(String.valueOf(enumMusicActionCode.PRE));
+                StaticValue.mainContext.startService(intent);
+            }
+        });
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

@@ -112,6 +112,7 @@ public class homeFragment extends Fragment {
                 else
                     songList =  new ArrayList<>();
                 progressBar.setVisibility(View.INVISIBLE);
+                StaticValue.recyclerView = recyclerView;
             }
         });
         return rootView;

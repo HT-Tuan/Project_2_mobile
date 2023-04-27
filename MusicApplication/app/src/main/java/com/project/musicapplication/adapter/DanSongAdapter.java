@@ -80,6 +80,7 @@ public class DanSongAdapter extends RecyclerView.Adapter<DanSongAdapter.SongView
             if (position != RecyclerView.NO_POSITION) {
                 Song song = songList.get(position);
                 // Do something with the song
+                StaticValue.currentIndex = position;
                 openSongControll(song);
             }
         }
