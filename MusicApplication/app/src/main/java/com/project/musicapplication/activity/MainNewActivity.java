@@ -376,7 +376,10 @@ public class MainNewActivity extends AppCompatActivity{
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         shapeableImageView.clearAnimation();
-                    }
+                        if(StaticValue.currentIndex < StaticValue.mSong.size()){
+                            StaticValue.currentIndex = StaticValue.currentIndex + 1;
+                            StaticValue.recyclerView.findViewHolderForAdapterPosition(StaticValue.currentIndex).itemView.performClick();
+                        }                    }
                 });
                 switch (enumMusicActionCode.valueOf(intent.getAction())) {
                     case PLAY:
